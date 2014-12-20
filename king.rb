@@ -5,7 +5,8 @@ class King < SteppingPiece
   end
   
   def inspect
-    self.color == :w ? "\u2654" :  "\u2654".blue
+    self.color == :g ? "\u265A".green :  "\u265A".blue
   end
+  
   
 end

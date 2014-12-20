@@ -12,7 +12,7 @@ grid = Board.new
 # b = Bishop.new([2 ,4], grid, :w)
 # grid.[]=([4, 5], b)
 
-grid.print_board
+grid.print_board([0, 0])
 while true
   begin
   puts "Where would you like to move from?"
@@ -23,7 +23,7 @@ while true
   to = to.split(",").map(&:to_i)
 
 
-  grid.move(from, to)
+  grid.move(from, to, :w)
   rescue NilPieceError
     puts "Need a valid starting piece"
   rescue InvalidMoveError
@@ -32,7 +32,7 @@ while true
     puts "Cannot move into check"
     retry
   end
-  grid.print_board
+  grid.print_board([0, 0])
   
   puts "checkmate" if grid.checkmate?(:b)
   puts " "

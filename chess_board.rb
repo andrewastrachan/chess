@@ -68,14 +68,14 @@ class Board
               Pawn.new([1, 4], self, :b), Pawn.new([1, 5], self, :b),
               Pawn.new([1, 6], self, :b), Pawn.new([1, 7], self, :b)]
               
-    whites = [Rook.new([7, 0], self, :w), Knight.new([7, 1], self, :w),
-              Bishop.new([7, 2], self, :w), Queen.new([7, 3], self, :w),
-              King.new([7, 4], self, :w), Bishop.new([7, 5], self, :w),
-              Knight.new([7, 6], self, :w), Rook.new([7, 7], self, :w), 
-              Pawn.new([6, 0], self, :w), Pawn.new([6, 1], self, :w), 
-              Pawn.new([6, 2], self, :w), Pawn.new([6, 3], self, :w), 
-              Pawn.new([6, 4], self, :w), Pawn.new([6, 5], self, :w),
-              Pawn.new([6, 6], self, :w), Pawn.new([6, 7], self, :w)]
+    whites = [Rook.new([7, 0], self, :g), Knight.new([7, 1], self, :g),
+              Bishop.new([7, 2], self, :g), Queen.new([7, 3], self, :g),
+              King.new([7, 4], self, :g), Bishop.new([7, 5], self, :g),
+              Knight.new([7, 6], self, :g), Rook.new([7, 7], self, :g), 
+              Pawn.new([6, 0], self, :g), Pawn.new([6, 1], self, :g), 
+              Pawn.new([6, 2], self, :g), Pawn.new([6, 3], self, :g), 
+              Pawn.new([6, 4], self, :g), Pawn.new([6, 5], self, :g),
+              Pawn.new([6, 6], self, :g), Pawn.new([6, 7], self, :g)]
               
     (blacks + whites).each do |piece|
       self.[]=(piece.pos, piece)
@@ -105,10 +105,10 @@ class Board
   end
   
   def other_color(color)
-    color == :b ? :w : :b
+    color == :b ? :g : :b
   end
   
-  def print_board
+  def print_board(cursor)
     header = "   "
     (0..7).each {|i| header += " #{i}  "}
     puts header
@@ -120,7 +120,14 @@ class Board
         else
           space = " #{item.inspect}  "
         end
-        (row_index + index).odd? ? space : space.on_red
+        
+        if [row_index, index] == cursor
+          space.on_green
+        elsif (row_index + index).odd?
+          space
+        else
+          space.on_red
+        end
       end
       print row_index.to_s + " " 
       show.each {|item| print item} 

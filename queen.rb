@@ -5,6 +5,6 @@ class Queen < SlidingPiece
   end
   
   def inspect
-    self.color == :w ? "\u2655" :  "\u2655".blue
+    self.color == :g ? "\u265B".green :  "\u265B".blue
   end
 end

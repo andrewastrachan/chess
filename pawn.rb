@@ -35,7 +35,7 @@ class Pawn < Piece
   end
   
   def twostep_allowed?
-    if @color == :w
+    if @color == :g
       return true if @pos[0] == 6
     elsif @color == :b
       return true if self.pos[0] == 1
@@ -57,7 +57,7 @@ class Pawn < Piece
   end
   
   def move_directions
-    if @color == :w
+    if @color == :g
       twostep_allowed? ? WHITEPAWN_MOVE + WHITEPAWN_TWOSTEP : WHITEPAWN_MOVE
     elsif @color == :b
       twostep_allowed? ? BLACKPAWN_MOVE + BLACKPAWN_TWOSTEP : BLACKPAWN_MOVE
@@ -65,7 +65,7 @@ class Pawn < Piece
   end
   
   def take_directions
-    if @color == :w
+    if @color == :g
       WHITEPAWN_TAKE
     elsif @color == :b
       BLACKPAWN_TAKE
@@ -73,7 +73,7 @@ class Pawn < Piece
   end
   
   def twostep_directions
-    if @color == :w
+    if @color == :g
       WHITEPAWN_TWOSTEP
     elsif @color == :b
       BLACKPAWN_TWOSTEP
@@ -81,7 +81,7 @@ class Pawn < Piece
   end
   
   def inspect
-    self.color == :w ? "\u2659" :  "\u2659".blue
+    self.color == :g ? "\u265F".green :  "\u265F".blue
   end
   
 end

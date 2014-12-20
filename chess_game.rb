@@ -1,6 +1,8 @@
 require_relative 'chess_pieces'
 require_relative 'chess_board'
+require_relative 'human_player'
 require 'colorize'
+require 'io/console'
 
 class NilPieceError < StandardError
 end
@@ -17,60 +19,29 @@ end
 class Game 
   
   def initialize
-    @player_1 = Human.new(:w)
-    @player_2 = Human.new(:b)
     @grid = Board.new
+    @player_1 = Human.new(:g, @grid)
+    @player_2 = Human.new(:b, @grid)
+    @current_player = @player_1
+    
   end
+  
+  def current_player_switch
+    @current_player = (@current_player == @player_1 ? @player_2 : @player_1)
+  end 
   
   def play
     system "clear"
-    @grid.print_board
-    until @grid.checkmate?(:w) || @grid.checkmate?(:b)
-      @player_1.play_turn(@grid)
-      @grid.print_board
-      @player_2.play_turn(@grid)
-      @grid.print_board
+    
+    coord = [0, 0]
+    @grid.print_board(coord)
+    
+    until @grid.checkmate?(:g) || @grid.checkmate?(:b)
+      @current_player.play_turn(coord)
+      # current_player_switch
     end
     
-    @grid.checkmate?(:w) ? "Black Wins!" : "White Wins!"
-  end
-  
-end
-
-
-class Human
-  attr_reader :color
-  
-  def initialize(color)
-    @color = color
-  end
-  
-  def color_message
-    puts (@color == :w ? "White Turn" : "Black Turn")
-  end
-  
-  def play_turn(grid)
-    begin
-    color_message
-    puts "Where would you like to move from?"
-    from = gets.chomp
-    from = from.split(",").map(&:to_i)
-    puts "Where would you like to move to?"
-    to = gets.chomp
-    to = to.split(",").map(&:to_i)
-    grid.move(from, to, color)
-      
-    rescue NilPieceError
-      puts "Need a valid starting piece"
-    rescue InvalidMoveError
-      puts "Invalid Move!"
-    rescue CheckMateError
-      puts "Cannot move into check"
-    rescue BadColorError
-      puts "Must move a piece of your color"
-      retry
-    end
-    system "clear"
+    @grid.checkmate?(:g) ? "Blue Wins!" : "Green Wins!"
   end
   
 end

@@ -5,7 +5,7 @@ class Knight < SteppingPiece
   end
   
   def inspect
-     self.color == :w ? "\u2658" :  "\u2658".blue
+     self.color == :g ? "\u265E".green :  "\u265E".blue
   end
   
 end

@@ -5,7 +5,7 @@ class Bishop < SlidingPiece
   end
   
   def inspect
-    self.color == :w ? "\u2657" :  "\u2657".blue
+    self.color == :g ? "\u265D".green :  "\u265D".blue
   end
   
 end

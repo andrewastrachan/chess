@@ -5,6 +5,6 @@ class Rook < SlidingPiece
   end
   
   def inspect
-     self.color == :w ? "\u2656" :  "\u2656".blue
+     self.color == :g ? "\u265C".green :  "\u265C".blue
   end
 end
